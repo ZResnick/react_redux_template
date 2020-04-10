@@ -102,13 +102,15 @@ createdb $MY_APP_NAME-test
     will use while developing
   - However, it's **very** important that you **not** push it to
     Github! Otherwise, _prying eyes_ will find your secret API keys!
-  - It might look like this:
+  - It should look like this:
 
 ```
 process.env.GOOGLE_CLIENT_ID = 'hush hush'
 process.env.GOOGLE_CLIENT_SECRET = 'pretty secret'
 process.env.GOOGLE_CALLBACK = '/auth/google/callback'
 ```
+
+One thing to note is that if you build a bunch of models and then want to change them, you will need to comment IN line 15 of server/index.js.  That {force: true} will overwrite whats currently in the DB, but note that doing this will destroy all your data.  You the need to turn it off again after your tables are re-written so that the next time you launch the app, it doesn't we-write them again.  You can seed data to your DB using npm run seed which will run the file in script/seed.js.
 
 ### OAuth
 
@@ -221,7 +223,7 @@ above has failed.
 That's it! From now on, whenever `master` is updated on GitHub, Travis
 will automatically push the app to Heroku for you.
 
-### Cody's own deploy script
+### Your own deploy script
 
 Your local copy of the application can be pushed up to Heroku at will,
 using this templates deployment script:
